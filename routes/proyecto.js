@@ -11,10 +11,8 @@ var Proyecto = require('../models/proyecto');
 //======================================
 app.get('/', (req, res) => {
     Proyecto.find()
-        // .populate('educacion')
-        // .populate('experiencia')
-        // .populate('formacion')
-        .populate('habilidad')
+        .populate('tecnologias')
+        .populate('ventanas')
         .exec({}, (err, proyecto) => {
             if (err) {
                 return res.status(500).json({
