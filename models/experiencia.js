@@ -3,11 +3,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var experienciaSchema = new Schema({
-    nombre: { type: String, required: false },
+    empresa: { type: String, required: false },
     cargo: { type: String, required: false },
     duracion: { type: String, required: false },
-    descripcion: { type: String, required: false },
-    actividades: { type: Object, required: false },
+    actividades: [{ type: Schema.Types.ObjectId, ref: 'Actividad' }],
+    // actividades: { type: Schema.Types.Array, ref: 'Actividad' }
+
 });
 
-module.exports = mongoose.model('Experiencia', experienciaSchema);
+module.exports = mongoose.model('Experiencia', experienciaSchema)

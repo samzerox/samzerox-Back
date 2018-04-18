@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var habilidadSchema = new Schema({
-    descripcion: { type: String, required: false },
-    habilidades: { type: Object, required: false },
-});
+    nombre: { type: String, required: false }
+}, { collection: 'habilidades' });
 
 module.exports = mongoose.model('Habilidad', habilidadSchema);
