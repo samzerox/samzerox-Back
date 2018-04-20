@@ -135,7 +135,8 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 });
             }
 
-            var pathViejo = './uploads/ventanas/' + ventana.imagen;
+
+            var pathViejo = './uploads/capturas/' + ventana.imagen;
 
             //Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
@@ -166,7 +167,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 });
             }
 
-            var pathViejo = './uploads/proyectos/' + proyecto.imagen;
+            var pathViejo = './uploads/portadas/' + proyecto.imagen;
 
             //Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
