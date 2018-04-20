@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var proyectoSchema = new Schema({
     nombre: { type: String, required: false },
-    imgPortada: { type: String, required: false },
+    imagen: { type: String, required: false },
     descripcion: { type: String, required: false },
     link: { type: String, required: false },
     tecnologias: [{ type: Schema.Types.ObjectId, ref: 'Tecnologia' }],

@@ -36,6 +36,8 @@ var habilidadRoutes = require('./routes/habilidad');
 var proyectoRoutes = require('./routes/proyecto');
 var tecnologiaRoutes = require('./routes/tecnologia');
 var ventanaRoutes = require('./routes/ventana');
+var uploadRoutes = require('./routes/upload');
+var imagenesRoutes = require('./routes/imagenes');
 
 
 
@@ -60,6 +62,9 @@ app.use('/habilidad', habilidadRoutes);
 app.use('/proyecto', proyectoRoutes);
 app.use('/tecnologia', tecnologiaRoutes);
 app.use('/ventana', ventanaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/img', imagenesRoutes);
+
 app.use('/', appRoutes);
 
 

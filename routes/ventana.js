@@ -8,7 +8,7 @@ var Ventana = require('../models/ventana');
 
 
 //======================================
-// Obtener todos los datos
+// Obtener todos las ventanas
 //======================================
 app.get('/', (req, res) => {
     Ventana.find({})
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 
 //======================================
-// Obtener Tecnologia por Id
+// Obtener Ventana por Id
 //======================================
 app.get('/:id', (req, res) => {
     var id = req.params.id;
@@ -153,7 +153,7 @@ app.delete('/:id', (req, res) => {
         }
 
         if (!ventanaBorrado) {
-            return res.status(404).json({
+            return res.status(400).json({
                 ok: false,
                 mensaje: 'No existe una ventana con ese id',
                 errors: { message: 'No existe una ventana con ese id' }

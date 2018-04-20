@@ -153,7 +153,7 @@ app.delete('/:id', (req, res) => {
         }
 
         if (!tecnologiaBorrado) {
-            return res.status(404).json({
+            return res.status(400).json({
                 ok: false,
                 mensaje: 'No existe una tecnologia con ese id',
                 errors: { message: 'No existe una tecnologia con ese id' }
