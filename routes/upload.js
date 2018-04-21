@@ -43,7 +43,7 @@ app.put('/:tipo/:id', (req, res, next) => {
 
     if (tipo == 'descargas') {
         //Obtener nombre del archivo
-        var archivo = req.files.curriculumDoc;
+        var archivo = req.files.curriculum;
         var nombreCortado = archivo.name.split('.');
         var extencionArchivo = nombreCortado[nombreCortado.length - 1];
 
@@ -59,7 +59,7 @@ app.put('/:tipo/:id', (req, res, next) => {
 
 
     //Solo estas extenciones aceptamos
-    var extencionesvalidas = ['png', 'jpg', 'gif', 'jpeg', 'doc'];
+    var extencionesvalidas = ['png', 'jpg', 'gif', 'jpeg', 'doc', 'pdf'];
 
     if (extencionesvalidas.indexOf(extencionArchivo) < 0) {
         return res.status(400).json({
@@ -83,8 +83,6 @@ app.put('/:tipo/:id', (req, res, next) => {
                 errors: err
             });
         }
-
-
 
         subirPorTipo(tipo, id, nombreArchivo, res);
 
@@ -205,24 +203,51 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 });
             }
 
-            var pathViejo = './uploads/descargas/' + usuario.curriculumDoc;
+            var archivo = nombreArchivo;
+            var nombreCortado = archivo.split('.');
+            var extencionArchivo = nombreCortado[nombreCortado.length - 1];
+
+            if (extencionArchivo == 'doc') {
+                var pathViejo = './uploads/descargas/' + usuario.curriculumDoc;
 
 
-            //Si existe, elimina la imagen anterior
-            if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
+                //Si existe, elimina la imagen anterior
+                if (fs.existsSync(pathViejo)) {
+                    fs.unlink(pathViejo);
+                }
+
+                usuario.curriculumDoc = nombreArchivo;
+                usuario.save((err, usuarioActualizado) => {
+
+                    return res.status(200).json({
+                        ok: true,
+                        mensaje: 'Curriculum Word de usuario actualizada',
+                        usuario: usuarioActualizado
+                    });
+
+                });
+            } else {
+                var pathViejo = './uploads/descargas/' + usuario.curriculumPdf;
+
+
+                //Si existe, elimina la imagen anterior
+                if (fs.existsSync(pathViejo)) {
+                    fs.unlink(pathViejo);
+                }
+
+                usuario.curriculumPdf = nombreArchivo;
+                usuario.save((err, usuarioActualizado) => {
+
+                    return res.status(200).json({
+                        ok: true,
+                        mensaje: 'Curriculum Pdf de usuario actualizada',
+                        usuario: usuarioActualizado
+                    });
+
+                });
             }
 
-            usuario.curriculumDoc = nombreArchivo;
-            usuario.save((err, usuarioActualizado) => {
 
-                return res.status(200).json({
-                    ok: true,
-                    mensaje: 'Curriculum Word de usuario actualizada',
-                    usuario: usuarioActualizado
-                });
-
-            });
         });
     }
 
