@@ -8,6 +8,8 @@ var usuarioSchema = new Schema({
     imagen: { type: String, required: false },
     correo: { type: String, required: false },
     tel: { type: String, required: false },
+    curriculumDoc: { type: String, required: false },
+    curriculumPdf: { type: String, required: false },
     pProfesional: { type: String, required: false },
     escuelas: [{ type: Schema.Types.ObjectId, ref: 'Escuela' }],
     experiencias: [{ type: Schema.Types.ObjectId, ref: 'Experiencia' }],

@@ -24,7 +24,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var id = req.params.id;
 
     //Tipos de coleccion
-    var tiposValidos = ['capturas', 'usuarios', 'portadas'];
+    var tiposValidos = ['capturas', 'usuarios', 'portadas', 'descargas'];
     if (tiposValidos.indexOf(tipo) < 0) {
         return res.status(400).json({
             ok: false,
@@ -41,13 +41,25 @@ app.put('/:tipo/:id', (req, res, next) => {
         });
     }
 
-    //Obtener nombre del archivo
-    var archivo = req.files.imagen;
-    var nombreCortado = archivo.name.split('.');
-    var extencionArchivo = nombreCortado[nombreCortado.length - 1];
+    if (tipo == 'descargas') {
+        //Obtener nombre del archivo
+        var archivo = req.files.curriculumDoc;
+        var nombreCortado = archivo.name.split('.');
+        var extencionArchivo = nombreCortado[nombreCortado.length - 1];
+
+
+
+    } else {
+
+        //Obtener nombre del archivo
+        var archivo = req.files.imagen;
+        var nombreCortado = archivo.name.split('.');
+        var extencionArchivo = nombreCortado[nombreCortado.length - 1];
+    }
+
 
     //Solo estas extenciones aceptamos
-    var extencionesvalidas = ['png', 'jpg', 'gif', 'jpeg'];
+    var extencionesvalidas = ['png', 'jpg', 'gif', 'jpeg', 'doc'];
 
     if (extencionesvalidas.indexOf(extencionArchivo) < 0) {
         return res.status(400).json({
@@ -62,7 +74,6 @@ app.put('/:tipo/:id', (req, res, next) => {
 
     //Mover el archivo del temporal a un path
     var path = `./uploads/${ tipo }/${ nombreArchivo }`;
-
     archivo.mv(path, err => {
 
         if (err) {
@@ -74,13 +85,8 @@ app.put('/:tipo/:id', (req, res, next) => {
         }
 
 
-        subirPorTipo(tipo, id, nombreArchivo, res);
 
-        // res.status(200).json({
-        //     ok: true,
-        //     mensaje: "Archivo movido correctamente",
-        //     extencionArchivo: extencionArchivo
-        // });
+        subirPorTipo(tipo, id, nombreArchivo, res);
 
 
     });
@@ -181,6 +187,39 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                     ok: true,
                     mensaje: 'Imagen de proyecto actualizada',
                     proyecto: proyectoActualizado
+                });
+
+            });
+        });
+    }
+
+    if (tipo === 'descargas') {
+
+        Usuario.findById(id, (err, usuario) => {
+
+            if (!usuario) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: 'usuario no existe',
+                    errors: { message: 'usuario no existe' }
+                });
+            }
+
+            var pathViejo = './uploads/descargas/' + usuario.curriculumDoc;
+
+
+            //Si existe, elimina la imagen anterior
+            if (fs.existsSync(pathViejo)) {
+                fs.unlink(pathViejo);
+            }
+
+            usuario.curriculumDoc = nombreArchivo;
+            usuario.save((err, usuarioActualizado) => {
+
+                return res.status(200).json({
+                    ok: true,
+                    mensaje: 'Curriculum Word de usuario actualizada',
+                    usuario: usuarioActualizado
                 });
 
             });
