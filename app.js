@@ -45,7 +45,8 @@ var imagenesRoutes = require('./routes/imagenes');
 
 
 // Conexion a la base de datos
-mongoose.connection.openUri('mongodb://localhost:27017/portafolioDB', (err, res) => {
+mongoose.connection.openUri('mongodb://samzerox:portafolioPass@ds255889.mlab.com:55889/portafoliodb', (err, res) => {
+    // mongoose.connection.openUri('mongodb://localhost:27017/portafolioDB', (err, res) => { esta linea es para una base local
     if (err) throw err;
     console.log('Base de datos: \x1b[32m%s\x1b[0m', 'online');
 

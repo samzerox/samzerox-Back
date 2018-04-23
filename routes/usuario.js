@@ -5,6 +5,8 @@ var app = express();
 
 var Usuario = require('../models/usuario');
 
+var mdAutenticacion = require('../middlewares/autenticacion');
+
 
 
 

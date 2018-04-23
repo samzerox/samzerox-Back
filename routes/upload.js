@@ -11,6 +11,7 @@ var Usuario = require('../models/usuario');
 var Ventana = require('../models/ventana');
 var Proyecto = require('../models/proyecto');
 
+var mdAutenticacion = require('../middlewares/autenticacion');
 
 
 

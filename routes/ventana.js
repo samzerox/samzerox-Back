@@ -4,7 +4,7 @@ var app = express();
 
 var Ventana = require('../models/ventana');
 
-
+var mdAutenticacion = require('../middlewares/autenticacion');
 
 
 //======================================

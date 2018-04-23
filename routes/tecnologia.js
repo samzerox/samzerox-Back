@@ -8,7 +8,6 @@ var mdAutenticacion = require('../middlewares/autenticacion');
 
 
 
-
 //======================================
 // Obtener todos las tecnologias
 //======================================
