@@ -7,6 +7,7 @@ var usuarioSchema = new Schema({
     titulo: { type: String, required: false },
     imagen: { type: String, required: false },
     correo: { type: String, required: false },
+    password: { type: String, required: false },
     tel: { type: String, required: false },
     curriculumDoc: { type: String, required: false },
     curriculumPdf: { type: String, required: false },

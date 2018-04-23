@@ -8,7 +8,7 @@ var Habilidad = require('../models/habilidad');
 
 
 //======================================
-// Obtener todos los datos
+// Obtener todos las habilidades
 //======================================
 app.get('/', (req, res) => {
     Habilidad.find({})

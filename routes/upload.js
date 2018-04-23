@@ -18,7 +18,7 @@ var Proyecto = require('../models/proyecto');
 app.use(fileUpload());
 
 
-app.put('/:tipo/:id', (req, res, next) => {
+app.put('/:tipo/:id', mdAutenticacion.verificaToken, (req, res, next) => {
 
     var tipo = req.params.tipo;
     var id = req.params.id;

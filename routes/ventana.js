@@ -63,7 +63,7 @@ app.get('/:id', (req, res) => {
 //======================================
 // Actualizar una tecnologia
 //======================================
-app.put('/:id', (req, res) => {
+app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -109,7 +109,7 @@ app.put('/:id', (req, res) => {
 //======================================
 // Crear una nuevo tecnologia
 //======================================
-app.post('/', (req, res) => {
+app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
     var body = req.body;
 
@@ -139,7 +139,7 @@ app.post('/', (req, res) => {
 //======================================
 // Eliminar una ventana
 //======================================
-app.delete('/:id', (req, res) => {
+app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
 
     Ventana.findByIdAndRemove(id, (err, ventanaBorrado) => {
