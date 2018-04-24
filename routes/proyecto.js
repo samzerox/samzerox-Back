@@ -63,6 +63,120 @@ app.get('/:id', (req, res) => {
 });
 
 
+//======================================
+// Actualizar un proyecto
+//======================================
+app.put('/:id', (req, res) => {
+
+    var id = req.params.id;
+    var body = req.body;
+
+    Proyecto.findById(id, (err, proyecto) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                mensaje: 'Error al buscar proyecto',
+                errors: err
+            });
+        }
+
+        if (!proyecto) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'la proyecto con el id ' + id + ' no existe',
+                errors: { message: 'No existe una proyecto con ese ID' }
+            });
+        }
+
+        proyecto.nombre = body.nombre;
+        proyecto.descripcion = body.descripcion;
+        proyecto.link = body.link;
+
+        proyecto.save((err, proyectoGuardado) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: 'Error al actualizar proyecto',
+                    errors: err
+                });
+            }
+
+            res.status(200).json({
+                ok: true,
+                mensaje: 'Proyecto actualizado correctamente',
+                proyecto: proyectoGuardado
+            });
+        });
+    });
+});
+
+
+//======================================
+// Crear un nuevo proyecto
+//======================================
+app.post('/', (req, res) => {
+
+    var body = req.body;
+
+    var proyecto = new Proyecto({
+        nombre: body.nombre,
+        descripcion: body.descripcion,
+        link: body.link
+
+    })
+
+    proyecto.save((err, proyectoGuardado) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'Error al crear la proyecto',
+                errors: err
+            });
+        }
+
+        res.status(201).json({
+            ok: true,
+            mensaje: 'Proyecto creado correctamente',
+            proyecto: proyectoGuardado,
+        });
+    });
+});
+
+
+//======================================
+// Eliminar un proyecto
+//======================================
+app.delete('/:id', (req, res) => {
+    var id = req.params.id;
+
+    Proyecto.findByIdAndRemove(id, (err, proyectoBorrado) => {
+
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                mensaje: 'Error al borrar el proyecto',
+                errors: err
+            });
+        }
+
+        if (!proyectoBorrado) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'No existe un proyecto con ese id',
+                errors: { message: 'No existe un proyecto con ese id' }
+            });
+        }
+
+        res.status(200).json({
+            ok: true,
+            mensaje: 'Proyecto eliminado correctamente',
+            proyecto: proyectoBorrado
+        });
+    });
+
+});
+
+
 
 
 

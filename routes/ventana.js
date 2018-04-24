@@ -61,7 +61,7 @@ app.get('/:id', (req, res) => {
 
 
 //======================================
-// Actualizar una tecnologia
+// Actualizar una ventana
 //======================================
 app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
@@ -107,7 +107,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
 
 //======================================
-// Crear una nuevo tecnologia
+// Crear una nueva ventana
 //======================================
 app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
@@ -123,7 +123,7 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error al crear el ventana',
+                mensaje: 'Error al crear la ventana',
                 errors: err
             });
         }
@@ -147,7 +147,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                mensaaje: 'Error al borrar la ventana',
+                mensaje: 'Error al borrar la ventana',
                 errors: err
             });
         }

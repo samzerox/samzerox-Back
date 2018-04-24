@@ -148,7 +148,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                mensaaje: 'Error al borrar la tecnologia',
+                mensaje: 'Error al borrar la tecnologia',
                 errors: err
             });
         }

@@ -124,4 +124,79 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
 });
 
+
+//======================================
+// Crear una nueva usuario
+//======================================
+app.post('/', (req, res) => {
+
+    var body = req.body;
+
+    var usuario = new Usuario({
+        nombre: body.nombre,
+        titulo: body.titulo,
+        tel: body.tel,
+        correo: body.correo,
+        password: body.password,
+        pProfesional: body.pProfesional,
+        hDescripcion: body.hDescripcion,
+        fDescripcion: body.fDescripcion,
+
+
+    })
+
+    usuario.save((err, usuarioGuardado) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'Error al crear el usuario',
+                errors: err
+            });
+        }
+
+        res.status(201).json({
+            ok: true,
+            usuario: usuarioGuardado,
+        });
+    });
+});
+
+
+//======================================
+// Eliminar un usuario
+//======================================
+app.delete('/:id', (req, res) => {
+    var id = req.params.id;
+
+    Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
+
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                mensaje: 'Error al borrar la usuario',
+                errors: err
+            });
+        }
+
+        if (!usuarioBorrado) {
+            return res.status(400).json({
+                ok: false,
+                mensaje: 'No existe una usuario con ese id',
+                errors: { message: 'No existe una usuario con ese id' }
+            });
+        }
+
+        res.status(200).json({
+            ok: true,
+            mensaje: 'Usuario Eliminado',
+            usuario: usuarioBorrado
+        });
+    });
+
+});
+
+
+
+
+
 module.exports = app;

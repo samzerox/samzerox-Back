@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var cursoSchema = new Schema({
-    curso: { type: String, required: false },
+    nombre: { type: String, required: false },
     link: { type: String, required: false }
 });
 
