@@ -17,6 +17,8 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use(cors());
+
 
 
 //Body Parser
