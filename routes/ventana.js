@@ -99,6 +99,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
             res.status(200).json({
                 ok: true,
+                mensaje: 'Ventana Actualizada correctamente',
                 ventana: ventanaGuardado
             });
         });
@@ -130,6 +131,7 @@ app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
         res.status(201).json({
             ok: true,
+            mensaje: 'Ventana Creada Correctamente',
             ventana: ventanaGuardado,
         });
     });
@@ -162,6 +164,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
         res.status(200).json({
             ok: true,
+            mensaje: 'Ventana Eliminada Correctamente',
             ventana: ventanaBorrado
         });
     });
