@@ -7,7 +7,6 @@ var Tecnologia = require('../models/tecnologia');
 var mdAutenticacion = require('../middlewares/autenticacion');
 
 
-
 //======================================
 // Obtener todos las tecnologias
 //======================================

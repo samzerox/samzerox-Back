@@ -4,7 +4,7 @@ var app = express();
 
 var Habilidad = require('../models/habilidad');
 
-
+var mdAutenticacion = require('../middlewares/autenticacion');
 
 
 //======================================
@@ -63,7 +63,7 @@ app.get('/:id', (req, res) => {
 //======================================
 // Actualizar una habilidad
 //======================================
-app.put('/:id', (req, res) => {
+app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -109,7 +109,7 @@ app.put('/:id', (req, res) => {
 //======================================
 // Crear una nueva habilidad
 //======================================
-app.post('/', (req, res) => {
+app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
     var body = req.body;
 
@@ -138,7 +138,7 @@ app.post('/', (req, res) => {
 //======================================
 // Eliminar una habilidad
 //======================================
-app.delete('/:id', (req, res) => {
+app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
 
     Habilidad.findByIdAndRemove(id, (err, habilidadBorrado) => {

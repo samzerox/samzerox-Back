@@ -14,7 +14,7 @@ var mdAutenticacion = require('../middlewares/autenticacion');
 // Obtener todos los datos
 //======================================
 app.get('/', (req, res) => {
-    Usuario.find({})
+    Usuario.find({}, { password: 0 })
         .populate('habilidades')
         .populate('escuelas')
         .populate({ path: 'experiencias', populate: { path: 'actividades' } })
@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
                 });
             }
 
+            usuario.password = ':)';
             res.status(200).json({
                 ok: true,
                 usuario: usuario,
@@ -63,6 +64,7 @@ app.get('/:id', (req, res) => {
                     errors: { message: 'No existe una usuario con ese ID' }
                 });
             }
+            usuario.password = ':)';
             res.status(200).json({
                 ok: true,
                 usuario: usuario
@@ -94,31 +96,27 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
                 errors: { message: 'No existe un usuario con ese ID' }
             });
         }
-        console.log(body);
 
         usuario.password = bcrypt.hashSync(body.password, 10),
 
-            console.log(usuario);
+            usuario.save((err, usuarioGuardado) => {
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        mensaje: 'Error al actualizar usuario',
+                        errors: err
+                    });
+                }
 
+                usuarioGuardado.password = ':)';
 
-        usuario.save((err, usuarioGuardado) => {
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    mensaje: 'Error al actualizar usuario',
-                    errors: err
+                res.status(200).json({
+                    ok: true,
+                    message: "Se actualizo el usuario",
+                    usuario: usuarioGuardado
                 });
-            }
 
-            usuarioGuardado.password = ':)';
-
-            res.status(200).json({
-                ok: true,
-                message: "Se actualizo el usuario",
-                usuario: usuarioGuardado
             });
-
-        });
 
     });
 
@@ -128,7 +126,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 //======================================
 // Crear una nueva usuario
 //======================================
-app.post('/', (req, res) => {
+app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
     var body = req.body;
 
@@ -165,7 +163,7 @@ app.post('/', (req, res) => {
 //======================================
 // Eliminar un usuario
 //======================================
-app.delete('/:id', (req, res) => {
+app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
 
     Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {

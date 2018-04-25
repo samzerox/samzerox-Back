@@ -71,8 +71,8 @@ app.use('/img', imagenesRoutes);
 app.use('/', appRoutes);
 
 
-
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Express server puerto: \x1b[32m%s\x1b[0m', 'online');
+var port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log('Express server puerto ' + port + ': \x1b[32m%s\x1b[0m', 'online');
 
 });

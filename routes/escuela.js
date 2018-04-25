@@ -4,7 +4,7 @@ var app = express();
 
 var Escuela = require('../models/escuela');
 
-
+var mdAutenticacion = require('../middlewares/autenticacion');
 
 
 //======================================
@@ -63,7 +63,7 @@ app.get('/:id', (req, res) => {
 //======================================
 // Actualizar una Escuela
 //======================================
-app.put('/:id', (req, res) => {
+app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -111,7 +111,7 @@ app.put('/:id', (req, res) => {
 //======================================
 // Crear una nueva escuela
 //======================================
-app.post('/', (req, res) => {
+app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
     var body = req.body;
 
@@ -143,7 +143,7 @@ app.post('/', (req, res) => {
 //======================================
 // Eliminar una escuela
 //======================================
-app.delete('/:id', (req, res) => {
+app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
 
     Escuela.findByIdAndRemove(id, (err, escuelaBorrado) => {

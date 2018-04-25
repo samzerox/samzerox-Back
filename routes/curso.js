@@ -4,7 +4,7 @@ var app = express();
 
 var Curso = require('../models/curso');
 
-
+var mdAutenticacion = require('../middlewares/autenticacion');
 
 
 //======================================
@@ -65,7 +65,7 @@ app.get('/:id', (req, res) => {
 //======================================
 // Actualizar un curso
 //======================================
-app.put('/:id', (req, res) => {
+app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -112,7 +112,7 @@ app.put('/:id', (req, res) => {
 //======================================
 // Crear un nuevo curso
 //======================================
-app.post('/', (req, res) => {
+app.post('/', mdAutenticacion.verificaToken, (req, res) => {
 
     var body = req.body;
 
@@ -143,7 +143,7 @@ app.post('/', (req, res) => {
 //======================================
 // Eliminar un curso
 //======================================
-app.delete('/:id', (req, res) => {
+app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
     var id = req.params.id;
 
     Curso.findByIdAndRemove(id, (err, cursoBorrado) => {
