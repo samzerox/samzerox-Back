@@ -89,9 +89,9 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
             });
         }
 
-        proyecto.nombre = body.nombre;
-        proyecto.descripcion = body.descripcion;
-        proyecto.link = body.link;
+        // proyecto.nombre = body.nombre;
+        // proyecto.descripcion = body.descripcion;
+        proyecto.ventanas = body.ventanas;
 
         proyecto.save((err, proyectoGuardado) => {
             if (err) {
