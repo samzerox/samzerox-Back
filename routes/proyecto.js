@@ -91,7 +91,10 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 
         // proyecto.nombre = body.nombre;
         // proyecto.descripcion = body.descripcion;
-        proyecto.ventanas = body.ventanas;
+        // proyecto.ventanas = body.ventanas;
+
+        //agrega el contenido de body.ventana a proyecto.ventana en vez de actualizarlo
+        proyecto.ventanas.push(body.ventanas[0]);
 
         proyecto.save((err, proyectoGuardado) => {
             if (err) {
