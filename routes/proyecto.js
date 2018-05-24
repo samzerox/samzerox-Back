@@ -89,12 +89,16 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
             });
         }
 
-        // proyecto.nombre = body.nombre;
-        // proyecto.descripcion = body.descripcion;
-        // proyecto.ventanas = body.ventanas;
+        if (body.tecnologias[0].length > 0) {
+            console.log("Tecnologias", body.tecnologias);
+            proyecto.tecnologias.push(body.tecnologias[0]);
+        }
 
-        //agrega el contenido de body.ventana a proyecto.ventana en vez de actualizarlo
-        proyecto.ventanas.push(body.ventanas[0]);
+        if (body.ventanas[0].length > 0) {
+            console.log("Ventanas", body.ventanas);
+
+            proyecto.ventanas.push(body.ventanas[0]);
+        }
 
         proyecto.save((err, proyectoGuardado) => {
             if (err) {
