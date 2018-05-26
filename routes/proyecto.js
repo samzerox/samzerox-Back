@@ -90,13 +90,10 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
         }
 
         if (body.tecnologias[0].length > 0) {
-            console.log("Tecnologias", body.tecnologias);
             proyecto.tecnologias.push(body.tecnologias[0]);
         }
 
         if (body.ventanas[0].length > 0) {
-            console.log("Ventanas", body.ventanas);
-
             proyecto.ventanas.push(body.ventanas[0]);
         }
 
