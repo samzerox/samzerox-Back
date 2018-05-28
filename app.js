@@ -39,7 +39,10 @@ var tecnologiaRoutes = require('./routes/tecnologia');
 var ventanaRoutes = require('./routes/ventana');
 var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
-
+var tecnologiaArrayRoutes = require('./routes/tecnologiaArray');
+var ventanaArrayRoutes = require('./routes/ventanaArray');
+var agregarVentanaRoutes = require('./routes/agregarVentana');
+var agregarTecnologiaRoutes = require('./routes/agregarTecnologia');
 
 
 
@@ -67,6 +70,10 @@ app.use('/tecnologia', tecnologiaRoutes);
 app.use('/ventana', ventanaRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/img', imagenesRoutes);
+app.use('/tecnologiaArray', tecnologiaArrayRoutes);
+app.use('/ventanaArray', ventanaArrayRoutes);
+app.use('/agregarVentana', agregarVentanaRoutes);
+app.use('/agregarTecnologia', agregarTecnologiaRoutes);
 
 app.use('/', appRoutes);
 

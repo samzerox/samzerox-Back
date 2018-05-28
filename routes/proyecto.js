@@ -93,10 +93,6 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
             proyecto.tecnologias.push(body.tecnologias[0]);
         }
 
-        if (body.ventanas[0].length > 0) {
-            proyecto.ventanas.push(body.ventanas[0]);
-        }
-
         proyecto.save((err, proyectoGuardado) => {
             if (err) {
                 return res.status(400).json({
