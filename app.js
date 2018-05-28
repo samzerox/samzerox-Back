@@ -39,14 +39,17 @@ var tecnologiaRoutes = require('./routes/tecnologia');
 var ventanaRoutes = require('./routes/ventana');
 var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
-
+var tecnologiaArrayRoutes = require('./routes/tecnologiaArray');
+var ventanaArrayRoutes = require('./routes/ventanaArray');
+var agregarVentanaRoutes = require('./routes/agregarVentana');
+var agregarTecnologiaRoutes = require('./routes/agregarTecnologia');
 
 
 
 
 // Conexion a la base de datos
-mongoose.connection.openUri('mongodb://samzerox:portafolioPass@ds255889.mlab.com:55889/portafoliodb', (err, res) => {
-    // mongoose.connection.openUri('mongodb://localhost:27017/portafolioDB', (err, res) => { //esta linea es para una base local
+// mongoose.connection.openUri('mongodb://samzerox:portafolioPass@ds255889.mlab.com:55889/portafoliodb', (err, res) => {
+mongoose.connection.openUri('mongodb://localhost:27017/portafolioDB', (err, res) => { //esta linea es para una base local
     if (err) throw err;
     console.log('Base de datos: \x1b[32m%s\x1b[0m', 'online');
 
@@ -67,6 +70,10 @@ app.use('/tecnologia', tecnologiaRoutes);
 app.use('/ventana', ventanaRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/img', imagenesRoutes);
+app.use('/tecnologiaArray', tecnologiaArrayRoutes);
+app.use('/ventanaArray', ventanaArrayRoutes);
+app.use('/agregarVentana', agregarVentanaRoutes);
+app.use('/agregarTecnologia', agregarTecnologiaRoutes);
 
 app.use('/', appRoutes);
 
